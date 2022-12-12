@@ -3,7 +3,7 @@ import Logo from '../public/images/logo.png';
 
 const Navbar = () => {
   return (
-    <div className=' bg-gradient-to-r from-white to-green-50'>
+    <div className=' bg-transparent backdrop-blur absolute w-full'>
       <nav className="w-full flex items-center justify-between container mx-auto px-4 py-5">
           <a className=''>
             <Image className='items-center px-4 py-2 h-12' src={Logo} alt="Logo" />
