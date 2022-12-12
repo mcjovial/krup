@@ -1,5 +1,6 @@
 import Image from "next/image";
 import About from "../components/About";
+import Features from "../components/Features";
 import Header from "../components/Header";
 import AboutVideo from "../public/images/Video.png"
 
@@ -9,6 +10,7 @@ export default function Home() {
     <>
       <Header />
       <About />
+      <Features />
       {/* <div className="bg-slate-300">
         <div className="flex md:flex-col flex-row items-center container mx-auto px-4">
           <div className="text-slate-700 md:text-center">
