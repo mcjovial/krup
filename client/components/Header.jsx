@@ -7,9 +7,10 @@ import Navbar from "./Navbar"
 const Header = () => {
   return (
     <>
-            <div className="static">
-        <Image className="h-screen w-full absolute top-0 left-0" src={headerBg} alt="alt" />
-        <Image className="w-full absolute bottom-0 left-0" src={headerBg2} alt="alt" />
+      <div className="">
+        <Navbar />
+        <Image className="z-0 h-screen w-full" src={headerBg} alt="alt" />
+        <Image className=" w-full absolute bottom-0 left-0" src={headerBg2} alt="alt" />
         <Image className="absolute bottom-0 right-0" src={hero} alt="alt" />
         
         <div className="lg:absolute bottom-0 mb-20 max-w-md ml-40">
@@ -20,7 +21,6 @@ const Header = () => {
             <a className="tex-sm mx-4">Sign In</a>
           </div>
         </div>
-        <Navbar />
       </div>
 
     </>
