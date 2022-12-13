@@ -3,6 +3,7 @@ import feature1 from "../public/images/feature1.png"
 import feature2 from "../public/images/feature2.png"
 import feature3 from "../public/images/feature3.png"
 import feature4 from "../public/images/feature4.png"
+import footer from "../public/images/footer.png"
 
 const Features = () => {
   const features = [feature1, feature2, feature3, feature4]
@@ -26,6 +27,9 @@ const Features = () => {
             <Image src={feature4} alt="alt"/>
           </div>
         </div>
+      </div>
+      <div className="mt-14">
+        <Image className="w-full" src={footer} alt="footer" />
       </div>
     </>
   )
