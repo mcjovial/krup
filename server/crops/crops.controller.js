@@ -5,6 +5,7 @@ const requestService = require("./crops.service");
 
 router.post("/", authorize(Role.ADMIN), create);
 router.get("/", authorize(Role.ADMIN), getAll);
+router.get("/search", authorize(), search);
 router.get("/:id", authorize(Role.ADMIN), getById);
 router.post("/farm/:id", authorize(), farm);
 router.delete("/:id", _delete);
@@ -34,7 +35,7 @@ function getById(req, res, next) {
 
 function search(req, res, next) {
   requestService
-    .search(req.query)
+    .search(req)
     .then((data) => res.json(data))
     .catch(next);
 }

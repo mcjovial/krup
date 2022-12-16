@@ -1,12 +1,12 @@
 const jwt = require('express-jwt');
-const { secret } = require('config.json');
+const { secret } = require('../config.json');
 const db = require('_helpers/db');
 const User = require('../users/users.model');
 
 module.exports = authorize;
 
 function authorize(roles = []) {
-    // roles param can be a single role string (e.g. Role.User or 'User') 
+    // roles param can be a single role string (e.g. Role.User or 'User')
     // or an array of roles (e.g. [Role.Admin, Role.User] or ['Admin', 'User'])
     if (typeof roles === 'string') {
         roles = [roles];
@@ -19,7 +19,7 @@ function authorize(roles = []) {
         // authorize based on user role
         async (req, res, next) => {
             const user = await User.findById(req.user.id);
-
+            console.log(req.user);
             if (!user || (roles.length && !roles.includes(user.role))) {
                 // user no longer exists or role not authorized
                 return res.status(401).json({ message: 'Unauthorized' });

@@ -1,4 +1,4 @@
-﻿const config = require("config.json");
+﻿const config = require("../config.json");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
@@ -16,16 +16,14 @@ module.exports = {
   delete: _delete,
 };
 
-async function authenticate({ email, password, contact }) {
-  let user;
-  if(email) user = await User.findOne({ email });
-  if(contact) user = await User.findOne({ contact });
+async function authenticate({ password, contact }) {
+  const user = await User.findOne({ contact }).lean();
 
   if (
     !user ||
     !bcrypt.compareSync(password, user.password)
   ) {
-    throw "Email or password is incorrect";
+    throw "Phone number or password is incorrect";
   }
 
   // authentication successful so generate jwt and refresh tokens
@@ -40,7 +38,10 @@ async function authenticate({ email, password, contact }) {
 
 async function register(params) {
   // validate
-  if (await User.findOne({ email: params.email })) throw "Email already registered!"
+  const meh = await User.findOne({ contact: params.contact })
+  params.role = "patron"
+  console.log(params);
+  // if (await User.findOne({ email: params.email })) throw "Email already registered!"
   if (await User.findOne({ contact: params.contact })) throw "Phone number already registered!"
 
   // create user object
@@ -123,8 +124,8 @@ function hash(password) {
 
 function generateJwtToken(user) {
   // create a jwt token containing the user id that expires in 15 minutes
-  return jwt.sign({ sub: user.id, id: user.id }, config.secret, {
-    expiresIn: "15m",
+  return jwt.sign({ sub: user._id, id: user._id }, config.secret, {
+    expiresIn: "55m",
   });
 }
 

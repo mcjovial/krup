@@ -3,6 +3,7 @@ import hero from "../public/images/Hero.png"
 import headerBg from "../public/images/image 1.png"
 import headerBg2 from "../public/images/bg2.png"
 import Navbar from "./Navbar"
+import Link from "next/link"
 
 const Header = () => {
   return (
@@ -18,7 +19,7 @@ const Header = () => {
           <p className="mb-4 text-base text-white md:text-lg">The simplest system to identify and increase productivity of barren soils through analysis</p>
           <div className="inline-flex items-center tracking-wider text-white">
             <a className="bg-red-500 text-sm p-6 mr-4">Get soil insight for free now</a>
-            <a className="tex-sm mx-4">Sign In</a>
+            <Link className="tex-sm mx-4" href="/login">Sign In</Link>
           </div>
         </div>
       </div>

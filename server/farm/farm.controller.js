@@ -50,6 +50,6 @@ function update(req, res, next) {
 function _delete(req, res, next) {
   farmService
     .delete(req.params.id)
-    .then(() => res.json({ message: "Subject deleted successfully" }))
+    .then(() => res.json({ message: "Farm deleted successfully" }))
     .catch(next);
 }
