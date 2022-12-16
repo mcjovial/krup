@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import Logo from '../public/images/logo.png';
 
 const Navbar = () => {
@@ -11,8 +12,8 @@ const Navbar = () => {
           <div className="text-sm text-slate-700">
             <a className='mr-4 mt-4'>About</a>
             <a className='mr-4 mt-4'>Features</a>
-            <a className='mr-4 mt-4'>Company</a>
-            <a className='mr-4 mt-4'>Contact</a>
+            <Link href='/register' className='mr-4 mt-4 hover:text-green-600'>Register</Link>
+            <Link href='/login' className='mr-4 mt-4 hover:text-green-600'>Login</Link>
           </div>
       </nav>
     </div>

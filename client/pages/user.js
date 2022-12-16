@@ -1,6 +1,8 @@
 import { FormControl, TextField } from "@mui/material";
 import axios from "axios";
 import Image from "next/image"
+import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Logo from '../public/images/logo.png';
@@ -20,6 +22,8 @@ const Dashboard = () => {
   const [results, setResults] = useState([])
   const [location, setLocation] = useState("")
   const [farm_id, setFarm_id] = useState("")
+
+  const route = useRouter()
   
   const config = {
     headers: {
@@ -59,14 +63,14 @@ const Dashboard = () => {
   }
 
   const handleFarm = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const search = JSON.parse(localStorage.getItem("search"))
     const farm = {...search, crop: farm_id, location}
     console.log(farm);
     setLoading(true)
     axios.post('http://localhost:4000/farm', { ...farm }, config).then(({ data }) => {
-      toast.success(data.message)
       setLoading(false);
+      toast.success(data.message)
     }).catch(({ message }) => {
       toast.error(message)
     })
@@ -87,9 +91,14 @@ const Dashboard = () => {
     })
   }
 
-  console.log(token);
-  console.log('farms', farms);
-  console.log('results', results);
+  const logout = () => {
+    // localStorage.clear()
+    route.push("/login")
+  }
+
+  // console.log(token);
+  // console.log('farms', farms);
+  // console.log('results', results);
 
   return (
     <>
@@ -100,8 +109,10 @@ const Dashboard = () => {
               <Image className='items-center px-4 py-2 h-12' src={Logo} alt="Logo" />
             </a>
             <div className="text-sm text-slate-700">
-              <a className='mr-4 mt-4'>About</a>
-              <a className='mr-4 mt-4'>Features</a>
+              <div className="flex justify-end">
+                <Link className="mt-5 hover:text-green-600" href="/">Home</Link>
+                <button type="button" onClick={logout} className='mr-4 mt-4 mb-6 hover:bg-slate-600 py-1 px-4 rounded-md hover:text-white'>Logout</button>
+              </div>
 
               <form className="flex" onSubmit={handleSearch}>
                 <TextField className="mt-2 mr-6"
@@ -152,12 +163,12 @@ const Dashboard = () => {
                   {
                     results.map((crop, i) => (
                       <div key={i} class="block p-6 rounded-lg shadow-lg bg-white max-w-sm mr-4">
-                        <h5 class="text-gray-900 text-xl leading-tight font-medium mb-2">{crop.name}</h5>
+                        <h5 class="text-gray-900 text-3xl leading-tight font-bold mb-2">{crop.name}</h5>
                         <p class="text-gray-700 text-base mb-4">
                           Ph: {crop.ph.min} - {crop.ph.max}, Nitrogen: {crop.nitrogen.min} - {crop.nitrogen.max}, Potassium: {crop.potassium.min} - {crop.potassium.max}, Phosphorus: {crop.phosphorus.min} - {crop.phosphorus.max}, Soil Moisture: {crop.soil_moisture.min} - {crop.soil_moisture.max}.
                         </p>
-                        <form onSubmit={handleFarm}>
-                          <TextField className="mt-2 mr-6"
+                        <form onSubmit={handleFarm} className="flex flex-col">
+                          <TextField className="mt-2 mr-6 w-full"
                             helperText=" "
                             id="demo-helper-text-aligned-no-helper"
                             label="Location"
